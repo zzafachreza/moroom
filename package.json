@@ -24,6 +24,7 @@
     "geolib": "^3.3.3",
     "intl": "^1.2.5",
     "lottie-react-native": "^3.5.0",
+    "mask-js": "^2.1.0",
     "react": "16.13.1",
     "react-native": "0.65.1",
     "react-native-animated-pagination-dots": "^0.1.72",

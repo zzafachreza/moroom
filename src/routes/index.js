@@ -897,7 +897,7 @@ export default function Router() {
         name="Jadwal"
         component={Jadwal}
         options={({ route, navigation }) => ({
-          title: 'PENJADWALAN PENGGUNAAN LAB',
+          title: 'RIWAYAT PENGGUNAAN RUANGAN',
           headerTintColor: 'white',
           headerStyle: {
             backgroundColor: colors.primary,

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,18 +11,18 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import {storeData, getData} from '../../utils/localStorage';
+import { storeData, getData, urlAPI } from '../../utils/localStorage';
 import axios from 'axios';
-import {colors} from '../../utils/colors';
-import {windowWidth, fonts} from '../../utils/fonts';
-import {Icon} from 'react-native-elements';
+import { colors } from '../../utils/colors';
+import { windowWidth, fonts } from '../../utils/fonts';
+import { Icon } from 'react-native-elements';
 
 const wait = timeout => {
   return new Promise(resolve => {
     setTimeout(resolve, timeout);
   });
 };
-export default function ({navigation, route}) {
+export default function ({ navigation, route }) {
   const [refreshing, setRefreshing] = React.useState(false);
   const [data, setData] = useState([]);
 
@@ -37,14 +37,26 @@ export default function ({navigation, route}) {
   }, []);
 
   const getDataBarang = () => {
-    axios.get('https://zavalabs.com/ekpp/api/jadwal.php').then(res => {
+    axios.post(urlAPI + '/jadwal.php', {
+      kode: route.params.kode
+    }).then(res => {
+      console.log(res.data);
       setData(res.data);
     });
   };
 
-  const renderItem = ({item}) => (
+  const renderItem = ({ item }) => (
     <>
-      <View style={{padding: 10, backgroundColor: colors.secondary}}>
+      <View style={{ padding: 10, backgroundColor: colors.secondary, flexDirection: 'row' }}>
+        <Text
+          style={{
+            flex: 1,
+            fontSize: windowWidth / 30,
+            color: colors.white,
+            fontFamily: fonts.secondary[600],
+          }}>
+          {item.nama_lengkap}
+        </Text>
         <Text
           style={{
             fontSize: windowWidth / 30,
@@ -53,6 +65,15 @@ export default function ({navigation, route}) {
           }}>
           {item.tanggal}
         </Text>
+        <Text
+          style={{
+            fontSize: windowWidth / 30,
+            color: colors.white,
+            fontFamily: fonts.secondary[600],
+          }}>
+          {item.nama_ruangan}
+        </Text>
+
       </View>
 
       <View
@@ -67,34 +88,120 @@ export default function ({navigation, route}) {
         }}>
         <View
           style={{
-            flex: 2,
+            flex: 1,
             justifyContent: 'center',
           }}>
           <Text
             style={{
               fontSize: windowWidth / 30,
               color: colors.black,
-              fontFamily: fonts.secondary[600],
+              fontFamily: fonts.secondary[400],
             }}>
-            {item.nama_jadwal}
+            Tujuan Penggunaan
           </Text>
-
           <Text
             style={{
               fontSize: windowWidth / 30,
-              color: colors.border,
+              color: colors.black,
+              fontFamily: fonts.secondary[600],
+            }}>
+            {item.tujuan}
+          </Text>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: windowWidth / 30,
+              color: colors.black,
               fontFamily: fonts.secondary[400],
             }}>
-            {item.keterangan_jadwal}
+            Nama Dosen
           </Text>
+          <Text
+            style={{
+              fontSize: windowWidth / 30,
+              color: colors.black,
+              fontFamily: fonts.secondary[600],
+            }}>
+            {item.dosen}
+          </Text>
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: windowWidth / 30,
+              color: colors.black,
+              fontFamily: fonts.secondary[400],
+            }}>
+            Mata Kuliah
+          </Text>
+          <Text
+            style={{
+              fontSize: windowWidth / 30,
+              color: colors.black,
+              fontFamily: fonts.secondary[600],
+            }}>
+            {item.mata_kuliah}
+          </Text>
+
+        </View>
+        <View
+          style={{
+            paddingHorizontal: 5,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+          <Text
+            style={{
+              fontSize: windowWidth / 35,
+              color: colors.black,
+              fontFamily: fonts.secondary[600],
+            }}>
+            Jam Masuk
+          </Text>
+          <Text
+            style={{
+              fontSize: windowWidth / 30,
+              color: colors.black,
+              fontFamily: fonts.secondary[400],
+            }}>
+            {item.jam_masuk}
+          </Text>
+
+
+        </View>
+        <View
+          style={{
+            // flex: 1,
+            paddingHorizontal: 5,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+          <Text
+            style={{
+              fontSize: windowWidth / 35,
+              color: colors.black,
+              fontFamily: fonts.secondary[600],
+            }}>
+            Jam Keluar
+          </Text>
+          <Text
+            style={{
+              fontSize: windowWidth / 30,
+              color: colors.black,
+              fontFamily: fonts.secondary[400],
+            }}>
+            {item.jam_keluar}
+          </Text>
+
+
         </View>
         <View
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            // flex: 1,
+
           }}>
-          <Icon type="ionicon" name="calendar-outline" color={colors.primary} />
+          {item.kondisi == "OPEN" && <Icon type="ionicon" name="checkmark-circle" color={colors.success} />}
+          {item.kondisi == "CLOSE" && <Icon type="ionicon" name="close-circle" color={colors.danger} />}
         </View>
       </View>
       {/* <TouchableOpacity
@@ -146,6 +253,7 @@ export default function ({navigation, route}) {
       style={{
         padding: 10,
       }}>
+
       <FlatList
         data={data}
         renderItem={renderItem}

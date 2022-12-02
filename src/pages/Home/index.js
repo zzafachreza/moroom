@@ -19,12 +19,13 @@ import MyCarouser from '../../components/MyCarouser';
 import axios from 'axios';
 import messaging from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
+import { showMessage } from 'react-native-flash-message';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import LottieView from 'lottie-react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { MyButton, MyGap } from '../../components';
-
+import ZavalabsScanner from 'react-native-zavalabs-scanner'
 export default function Home({ navigation }) {
   const [user, setUser] = useState({});
   const [ruangan, setRuangan] = useState([]);
@@ -92,7 +93,7 @@ export default function Home({ navigation }) {
 
   const __renderItem = ({ item }) => {
     return (
-      <TouchableOpacity style={{
+      <TouchableOpacity onPress={() => navigation.navigate('Jadwal', item)} style={{
         padding: 15,
         margin: 5,
         flex: 1,
@@ -114,6 +115,16 @@ export default function Home({ navigation }) {
           fontSize: windowWidth / 30,
           textAlign: 'center'
         }}>{item.nama_ruangan}</Text>
+        <View style={{
+          position: 'absolute',
+          left: 10,
+          top: 5,
+          backgroundColor: colors.white,
+          borderRadius: 50,
+        }}>
+          {item.kondisi == 1 && <Icon type="ionicon" name="checkmark-circle" color={colors.success} />}
+          {item.kondisi == 0 && <Icon type="ionicon" name="close-circle" color={colors.danger} />}
+        </View>
       </TouchableOpacity>
     )
   }
@@ -186,8 +197,9 @@ export default function Home({ navigation }) {
           alignItems: 'center',
           borderRadius: 10,
         }}>
-          <TouchableOpacity style={{
+          <TouchableOpacity onPress={() => navigation.navigate('Jenis', user)} style={{
             justifyContent: 'center',
+            alignItems: 'center',
             flexDirection: 'row',
             flex: 1,
           }}>
@@ -204,11 +216,42 @@ export default function Home({ navigation }) {
             height: 70,
             borderLeftColor: colors.secondary,
           }}><Text>&nbsp;</Text></View>
-          <TouchableOpacity style={{
+          <TouchableOpacity onPress={() => {
+            let test = 'R002'
+
+            ZavalabsScanner.showBarcodeReader(result => {
+              console.log('barcode : ', result);
+              if (result == null) {
+                console.log('tidak jadi');
+              } else {
+
+                const filtered = ruangan.filter(i => i.kode.toLowerCase().indexOf(result.toLowerCase()) > -1);
+                console.log(filtered[0].kondisi);
+                if (filtered[0].kondisi == 1) {
+
+                  showMessage({
+                    message: 'Maaf ruangan sedang di pakai !',
+                    type: 'danger'
+                  });
+                  Alert.alert('MoRoom', 'Maaf ruangan sedang dipakai')
+
+                } else {
+                  navigation.navigate('Add', {
+                    kode: result,
+                    fid_user: user.id
+                  })
+                }
+
+
+              }
+
+            });
+          }} style={{
             flexDirection: 'row',
             justifyContent: 'center',
             paddingHorizontal: 10,
             flex: 0.5,
+            alignItems: 'center'
 
           }}>
             <Icon type='ionicon' name='qr-code' color={colors.primary} />

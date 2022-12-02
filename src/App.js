@@ -14,8 +14,8 @@ export default function App() {
 
   PushNotification.createChannel(
     {
-      channelId: 'kopicaptiger', // (required)
-      channelName: 'kopicaptiger', // (required)
+      channelId: 'moroom', // (required)
+      channelName: 'moroom', // (required)
       channelDescription: 'A channel to categorise your notifications', // (optional) default: undefined.
       playSound: true, // (optional) default: true
       soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function

@@ -56,8 +56,8 @@ export default function Register({ navigation }) {
     nama_lengkap: '',
     email: '',
     npm: '',
-    prodi: '',
-    jurusan: '',
+    prodi: 'PTIK',
+    jurusan: 'JTIK',
     alamat: '',
     telepon: '',
     password: '',
@@ -193,32 +193,35 @@ export default function Register({ navigation }) {
 
 
         <MyGap jarak={10} />
-        <MyInput
-          label="Prodi"
-          iconname="bookmarks-outline"
-          placeholder="Masukan prodi"
-          value={data.prodi}
-          onChangeText={x =>
-            setData({
-              ...data,
-              prodi: x,
-            })
+        <MyPicker label="Jurusan" data={[
+          {
+            label: 'JTIK',
+            value: 'JTIK'
           }
-        />
-
+        ]} iconname="school-outline" onValueChange={x =>
+          setData({
+            ...data,
+            jurusan: x,
+          })} />
         <MyGap jarak={10} />
-        <MyInput
-          label="Jurusan"
-          iconname="school-outline"
-          placeholder="Masukan semester"
-          value={data.jurusan}
-          onChangeText={x =>
-            setData({
-              ...data,
-              jurusan: x,
-            })
+
+        <MyPicker label="Prodi" data={[
+          {
+            label: 'PTIK',
+            value: 'PTIK'
+          },
+          {
+            label: 'TELKOM',
+            value: 'TELKOM'
           }
-        />
+        ]} iconname="bookmarks-outline" onValueChange={x =>
+          setData({
+            ...data,
+            prodi: x,
+          })} />
+
+
+
 
 
         <MyGap jarak={10} />

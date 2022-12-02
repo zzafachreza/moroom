@@ -35,6 +35,7 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
 
+
     // const unsubscribe = messaging().onMessage(async remoteMessage => {
 
     //   const json = JSON.stringify(remoteMessage);
@@ -46,13 +47,7 @@ export default function Home({ navigation }) {
 
 
 
-    //   PushNotification.localNotification({
-    //     /* Android Only Properties */
-    //     channelId: 'ekonseling', // (required) channelId, if the channel doesn't exist, notification will not trigger.
-    //     title: obj.notification.title, // (optional)
-    //     message: obj.notification.body, // (required)
-    //   });
-    // });
+
 
 
 
@@ -175,17 +170,27 @@ export default function Home({ navigation }) {
             }}>MoRoom</Text>
           </View>
 
+          <TouchableOpacity onPress={() => {
+            PushNotification.localNotification({
+              /* Android Only Properties */
+              channelId: 'moroom', // (required) channelId, if the channel doesn't exist, notification will not trigger.
+              title: 'judul', // (optional)
+              message: 'sisi', // (required)
+            });
 
-          <View style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginRight: 20,
-          }}>
-            <Image source={require('../../assets/logo.png')} style={{
-              width: 50, height: 100
-            }} />
-          </View>
 
+
+          }} >
+            <View style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginRight: 20,
+            }}>
+              <Image source={require('../../assets/logo.png')} style={{
+                width: 50, height: 100
+              }} />
+            </View>
+          </TouchableOpacity>
         </View>
 
         {/* in out */}
@@ -272,6 +277,6 @@ export default function Home({ navigation }) {
         <FlatList data={ruangan} renderItem={__renderItem} numColumns={3} />
       </ScrollView>
 
-    </SafeAreaView>
+    </SafeAreaView >
   );
 }

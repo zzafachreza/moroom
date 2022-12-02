@@ -59,6 +59,7 @@ export default function ({ navigation, route }) {
         </Text>
         <Text
           style={{
+            flex: 1,
             fontSize: windowWidth / 30,
             color: colors.white,
             fontFamily: fonts.secondary[600],

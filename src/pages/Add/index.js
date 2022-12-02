@@ -14,8 +14,23 @@ import 'intl/locale-data/jsonp/en';
 import { Icon } from 'react-native-elements';
 import { showMessage } from 'react-native-flash-message';
 import { maskJs, maskCurrency } from 'mask-js';
-
+import PushNotification from 'react-native-push-notification';
 export default function ({ navigation, route }) {
+
+
+    const aturAlarm = (waktu = 3) => {
+        PushNotification.localNotificationSchedule({
+            channelId: 'moroom', // (required) channelId, if the channel doesn't exist, notification will not trigger.
+            title: 'MoRoom Informasi', // (optional)
+            message: 'Waktu pamakain ruangan akan habis 10 menit lagi', // (required)
+            //... You can use all the options from localNotifications
+            date: new Date(Date.now() + waktu * 1000), // in 60 secs
+            allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
+
+            /* Android Only Properties */
+            repeatTime: 1, // (optional) Increment of configured repeatType. Check 'Repeating Notifications' section for more info.
+        });
+    }
 
     const kode = route.params.barcode;
     const [data, setData] = useState([]);
@@ -23,7 +38,7 @@ export default function ({ navigation, route }) {
         kode: route.params.kode,
         fid_user: route.params.fid_user,
         tanggal: new Date(),
-        jam_masuk: '',
+        jam_masuk: new Date(),
         jam_keluar: '',
         tujuan: '',
         mata_kuliah: '',
@@ -34,9 +49,11 @@ export default function ({ navigation, route }) {
     const __sendServer = () => {
         setLoading(true);
         console.log(kirim)
+        // console.log('selisih', parseFloat(kirim.jam_keluar.replace(":", ".")) - parseFloat(kirim.jam_masuk.replace(":", ".")))
         setTimeout(() => {
             axios.post(urlAPI + '/pakai.php', kirim).then(res => {
                 console.log(res.data);
+                aturAlarm(res.data);
                 setLoading(false);
                 showMessage({
                     type: 'success',
@@ -44,7 +61,7 @@ export default function ({ navigation, route }) {
                 });
                 navigation.replace('MainApp');
             })
-        }, 800)
+        }, 100)
     }
 
     useEffect(() => {
@@ -88,7 +105,7 @@ export default function ({ navigation, route }) {
                     flex: 1,
                     paddingRight: 10,
                 }}>
-                    <MyInput placeholder="00:00" keyboardType='number-pad' maxLength={5} value={kirim.jam_masuk} onChangeText={x => {
+                    <MyInput value={kirim.jam_masuk} placeholder="00:00" keyboardType='number-pad' maxLength={5} value={kirim.jam_masuk} onChangeText={x => {
                         setKirim({
                             ...kirim,
                             jam_masuk: maskJs('99:99', x)

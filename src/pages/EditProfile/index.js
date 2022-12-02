@@ -236,29 +236,33 @@ export default function EditProfile({ navigation, route }) {
 
         <MyGap jarak={10} />
 
-        <MyInput
-          label="Prodi"
-          iconname="bookmark-outline"
-          value={data.prodi}
-          onChangeText={value =>
-            setData({
-              ...data,
-              prodi: value,
-            })
-          }
-        />
         <MyGap jarak={10} />
-        <MyInput
-          label="Jurusan"
-          iconname="school-outline"
-          value={data.jurusan}
-          onChangeText={value =>
-            setData({
-              ...data,
-              jurusan: value,
-            })
+        <MyPicker value={data.jurusan} label="Jurusan" data={[
+          {
+            label: 'JTIK',
+            value: 'JTIK'
           }
-        />
+        ]} iconname="school-outline" onValueChange={x =>
+          setData({
+            ...data,
+            jurusan: x,
+          })} />
+        <MyGap jarak={10} />
+
+        <MyPicker label="Prodi" value={data.prodi} data={[
+          {
+            label: 'PTIK',
+            value: 'PTIK'
+          },
+          {
+            label: 'TELKOM',
+            value: 'TELKOM'
+          }
+        ]} iconname="bookmarks-outline" onValueChange={x =>
+          setData({
+            ...data,
+            prodi: x,
+          })} />
 
 
 

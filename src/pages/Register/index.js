@@ -56,11 +56,12 @@ export default function Register({ navigation }) {
     nama_lengkap: '',
     email: '',
     npm: '',
-    prodi: 'PTIK',
+    prodi: 'PTIK A',
     jurusan: 'JTIK',
     alamat: '',
     telepon: '',
     password: '',
+    angkatan: '2020'
 
   });
 
@@ -179,9 +180,9 @@ export default function Register({ navigation }) {
         />
         <MyGap jarak={10} />
         <MyInput
-          label="NPM"
+          label="NIM"
           iconname="card-outline"
-          placeholder="Masukan npm"
+          placeholder="Masukan nim"
           value={data.npm}
           onChangeText={x =>
             setData({
@@ -207,19 +208,80 @@ export default function Register({ navigation }) {
 
         <MyPicker label="Prodi" data={[
           {
-            label: 'PTIK',
-            value: 'PTIK'
+            label: 'PTIK A',
+            value: 'PTIK A'
           },
           {
-            label: 'TELKOM',
-            value: 'TELKOM'
+            label: 'PTIK B',
+            value: 'PTIK B'
+          },
+          {
+            label: 'PTIK C',
+            value: 'PTIK C'
+          },
+          {
+            label: 'PTIK D',
+            value: 'PTIK D'
+          },
+          {
+            label: 'PTIK E',
+            value: 'PTIK E'
+          },
+          {
+            label: 'PTIK F',
+            value: 'PTIK F'
+          },
+          {
+            label: 'PTIK G',
+            value: 'PTIK G'
+          },
+          {
+            label: 'TELKOM A',
+            value: 'TELKOM A'
+          },
+          {
+            label: 'TELKOM B',
+            value: 'TELKOM B'
+          },
+          {
+            label: 'TELKOM C',
+            value: 'TELKOM C'
+          },
+          {
+            label: 'TELKOM D',
+            value: 'TELKOM D'
+          },
+          {
+            label: 'TELKOM E',
+            value: 'TELKOM E'
+          },
+          {
+            label: 'TELKOM F',
+            value: 'TELKOM F'
           }
         ]} iconname="bookmarks-outline" onValueChange={x =>
           setData({
             ...data,
             prodi: x,
           })} />
-
+        <MyGap jarak={10} />
+        <MyPicker label="Angkatan" data={[
+          {
+            label: '2020',
+            value: '2020'
+          }, {
+            label: '2021',
+            value: '2021'
+          }
+          , {
+            label: '2022',
+            value: '2022'
+          }
+        ]} iconname="calendar-outline" onValueChange={x =>
+          setData({
+            ...data,
+            angkatan: x,
+          })} />
 
 
 

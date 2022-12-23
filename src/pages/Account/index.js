@@ -206,6 +206,28 @@ export default function Account({ navigation, route }) {
                 {user.jurusan}
               </Text>
             </View>
+            <View
+              style={{
+                marginVertical: 3,
+                padding: 10,
+                backgroundColor: colors.white,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[600],
+                  color: colors.black,
+                }}>
+                Angkatan
+              </Text>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[400],
+                  color: colors.primary,
+                }}>
+                {user.angkatan}
+              </Text>
+            </View>
 
 
           </View>

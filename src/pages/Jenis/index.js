@@ -210,7 +210,7 @@ export default function ({ navigation, route }) {
             </View>
             <TouchableOpacity
                 onPress={() => {
-                    Alert.alert('MoRoom', 'Anda yakin akan checkout ruangan ini  ?', [
+                    Alert.alert('MoRoom', 'Anda yakin akan checkout ruangan ini  ?' + item.kode, [
                         {
                             text: 'Cancel',
                             onPress: () => console.log('Cancel Pressed'),

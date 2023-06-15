@@ -1,60 +1,60 @@
-import { ActivityIndicator, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { getData, urlAPI } from '../../utils/localStorage';
-import { MyButton, MyGap, MyInput } from '../../components';
-import { colors } from '../../utils/colors';
-import { fonts } from '../../utils/fonts';
-import { showMessage } from 'react-native-flash-message';
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { useState } from 'react'
 import axios from 'axios';
+import { useEffect } from 'react';
+import { colors } from '../../utils/colors';
+import { useIsFocused } from '@react-navigation/native';
+import { MyButton } from '../../components';
 export default function Akses({ navigation, route }) {
 
-  const [user, setUser] = useState({});
-  const [kirim, setKirim] = useState({
-    fid_user: user.id
-  })
+  const [code, setCode] = useState(0);
+
+  const isFocused = useIsFocused();
+  const __getCode = () => {
+    axios.post('https://moroom.zavalabs.com/v1/pintu?kode=R001').then(res => {
+      console.log(res.data)
+      setCode(res.data)
+    })
+  }
+
+
+  const buka = () => {
+    axios.post('https://moroom.zavalabs.com/v1/buka', {
+      kode: 'R001'
+    }).then(res => {
+      console.log('buka', res.data)
+      __getCode();
+    })
+  }
+
+  const tutup = () => {
+    axios.post('https://moroom.zavalabs.com/v1/tutup', {
+      kode: 'R001'
+    }).then(res => {
+
+      console.log('kunci', res.data);
+      __getCode();
+    })
+  }
+
+
   useEffect(() => {
-    getData('user').then(u => {
-      setUser(u);
-      setKirim({
-        ...kirim,
-        fid_user: u.id
-      })
-    });
 
-
-  }, [])
-
-  const [loading, setLoading] = useState(false);
+    if (isFocused) {
+      __getCode();
+    }
+  }, [isFocused])
   return (
-    <SafeAreaView style={{
+    <View style={{
       flex: 1,
       backgroundColor: colors.white,
-      padding: 10,
+      padding: 20,
+      justifyContent: 'center'
     }}>
-      <ScrollView>
-        <MyInput onChangeText={x => setKirim({ ...kirim, keterangan: x })} placeholder="masukan perihal bantuan relawan" label="Perihal bantuan" iconname="create" multiline />
-        <MyGap jarak={20} />
-        {loading && <ActivityIndicator color={colors.primary} size="large" />}
-        {!loading && <MyButton onPress={() => {
-          console.log(kirim);
-          setLoading(true);
-
-          setTimeout(() => {
-            axios.post(urlAPI + '/1add_bantuan.php', kirim).then(res => {
-              setLoading(false);
-
-              showMessage({
-                type: 'success',
-                color: colors.white,
-                backgroundColor: colors.success,
-                message: 'Selamat bantuan relawan berhasil dikirim'
-              })
-            }, 1000);
-            navigation.goBack();
-          })
-        }} colorText={colors.primary} iconColor={colors.primary} Icons="cloud-upload-outline" title="Kirim" warna={colors.secondary} />}
-      </ScrollView>
-    </SafeAreaView>
+      {code == 1 && <MyButton onPress={buka} title="KUNCI PINTU" warna={colors.primary} Icons="lock-closed" />}
+      {code == 0 && <MyButton onPress={tutup} title="BUKA PINTU" warna={colors.black} Icons="lock-open" />}
+    </View>
   )
 }
 

@@ -706,7 +706,7 @@ export default function Router() {
         name="Akses"
         component={Akses}
         options={({ route, navigation }) => ({
-          title: 'Perihal',
+          title: 'PINTU OTOMATIS',
           headerTintColor: 'white',
           headerShown: true,
           headerStyle: {

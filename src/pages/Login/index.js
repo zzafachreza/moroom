@@ -110,14 +110,16 @@ export default function Login({ navigation }) {
             padding: 10,
             borderRadius: 10,
           }}>
-          <Image
-            source={require('../../assets/logo.png')}
-            style={{
-              resizeMode: 'contain',
-              width: windowWidth,
-              height: 300
-            }}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate('Akses')}>
+            <Image
+              source={require('../../assets/logo.png')}
+              style={{
+                resizeMode: 'contain',
+                width: windowWidth,
+                height: 300
+              }}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.page}>
           <Text

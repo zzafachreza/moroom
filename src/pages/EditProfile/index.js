@@ -279,28 +279,28 @@ export default function EditProfile({ navigation, route }) {
             value: 'PTIK G'
           },
           {
-            label: 'TELKOM A',
-            value: 'TELKOM A'
+            label: 'TEKOM A',
+            value: 'TEKOM A'
           },
           {
-            label: 'TELKOM B',
-            value: 'TELKOM B'
+            label: 'TEKOM B',
+            value: 'TEKOM B'
           },
           {
-            label: 'TELKOM C',
-            value: 'TELKOM C'
+            label: 'TEKOM C',
+            value: 'TEKOM C'
           },
           {
-            label: 'TELKOM D',
-            value: 'TELKOM D'
+            label: 'TEKOM D',
+            value: 'TEKOM D'
           },
           {
-            label: 'TELKOM E',
-            value: 'TELKOM E'
+            label: 'TEKOM E',
+            value: 'TEKOM E'
           },
           {
-            label: 'TELKOM F',
-            value: 'TELKOM F'
+            label: 'TEKOM F',
+            value: 'TEKOM F'
           }
         ]} iconname="bookmarks-outline" onValueChange={x =>
           setData({

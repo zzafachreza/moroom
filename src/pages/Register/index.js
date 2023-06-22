@@ -258,6 +258,10 @@ export default function Register({ navigation }) {
           {
             label: 'TEKOM F',
             value: 'TEKOM F'
+          },
+          {
+            label: 'TEKOM EMBEDED',
+            value: 'TEKOM EMBEDED'
           }
         ]} iconname="bookmarks-outline" onValueChange={x =>
           setData({
@@ -266,6 +270,10 @@ export default function Register({ navigation }) {
           })} />
         <MyGap jarak={10} />
         <MyPicker label="Angkatan" data={[
+          {
+            label: '2019',
+            value: '2019'
+          },
           {
             label: '2020',
             value: '2020'

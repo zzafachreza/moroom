@@ -56,7 +56,7 @@ export default function ({ navigation, route }) {
                         color: colors.white,
                         fontFamily: fonts.secondary[600],
                     }}>
-                    {item.nama_lengkap}
+                    {item.hari}
                 </Text>
                 <Text
                     style={{
@@ -93,27 +93,26 @@ export default function ({ navigation, route }) {
                         flex: 1,
                         justifyContent: 'center',
                     }}>
-                    <View>
-                        <Text
-                            style={{
-                                fontSize: windowWidth / 30,
-                                color: colors.black,
-                                fontFamily: fonts.secondary[400],
-                            }}>
-                            Tujuan Penggunaan
-                        </Text>
-                        <Text
-                            style={{
-                                fontSize: windowWidth / 30,
-                                color: colors.black,
-                                fontFamily: fonts.secondary[600],
-                            }}>
-                            {item.tujuan}
-                        </Text>
-                    </View>
                     <Text
                         style={{
-                            marginTop: 10,
+
+                            fontSize: windowWidth / 30,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[400],
+                        }}>
+                        Mata Kuliah
+                    </Text>
+                    <Text
+                        style={{
+                            fontSize: windowWidth / 30,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[600],
+                        }}>
+                        {item.mata_kuliah}
+                    </Text>
+
+                    <Text
+                        style={{
                             fontSize: windowWidth / 30,
                             color: colors.black,
                             fontFamily: fonts.secondary[400],
@@ -135,7 +134,7 @@ export default function ({ navigation, route }) {
                             color: colors.black,
                             fontFamily: fonts.secondary[400],
                         }}>
-                        Mata Kuliah
+                        Kelas
                     </Text>
                     <Text
                         style={{
@@ -143,7 +142,23 @@ export default function ({ navigation, route }) {
                             color: colors.black,
                             fontFamily: fonts.secondary[600],
                         }}>
-                        {item.mata_kuliah}
+                        {item.kelas}
+                    </Text>
+                    <Text
+                        style={{
+                            fontSize: windowWidth / 30,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[400],
+                        }}>
+                        Anagkatan
+                    </Text>
+                    <Text
+                        style={{
+                            fontSize: windowWidth / 30,
+                            color: colors.black,
+                            fontFamily: fonts.secondary[600],
+                        }}>
+                        {item.angkatan}
                     </Text>
 
                 </View>

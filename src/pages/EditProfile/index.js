@@ -301,6 +301,10 @@ export default function EditProfile({ navigation, route }) {
           {
             label: 'TEKOM F',
             value: 'TEKOM F'
+          },
+          {
+            label: 'TEKOM EMBEDED',
+            value: 'TEKOM EMBEDED'
           }
         ]} iconname="bookmarks-outline" onValueChange={x =>
           setData({
@@ -310,6 +314,10 @@ export default function EditProfile({ navigation, route }) {
 
         <MyGap jarak={10} />
         <MyPicker label="Angkatan" value={data.angkatan} data={[
+          {
+            label: '2019',
+            value: '2019'
+          },
           {
             label: '2020',
             value: '2020'

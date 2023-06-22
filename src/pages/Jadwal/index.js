@@ -55,7 +55,7 @@ export default function ({ navigation, route }) {
             color: colors.white,
             fontFamily: fonts.secondary[600],
           }}>
-          {item.nama_lengkap}
+          {item.hari}
         </Text>
         <Text
           style={{
@@ -94,11 +94,12 @@ export default function ({ navigation, route }) {
           }}>
           <Text
             style={{
+
               fontSize: windowWidth / 30,
               color: colors.black,
               fontFamily: fonts.secondary[400],
             }}>
-            Tujuan Penggunaan
+            Mata Kuliah
           </Text>
           <Text
             style={{
@@ -106,11 +107,11 @@ export default function ({ navigation, route }) {
               color: colors.black,
               fontFamily: fonts.secondary[600],
             }}>
-            {item.tujuan}
+            {item.mata_kuliah}
           </Text>
+
           <Text
             style={{
-              marginTop: 10,
               fontSize: windowWidth / 30,
               color: colors.black,
               fontFamily: fonts.secondary[400],
@@ -132,7 +133,7 @@ export default function ({ navigation, route }) {
               color: colors.black,
               fontFamily: fonts.secondary[400],
             }}>
-            Mata Kuliah
+            Kelas
           </Text>
           <Text
             style={{
@@ -140,8 +141,25 @@ export default function ({ navigation, route }) {
               color: colors.black,
               fontFamily: fonts.secondary[600],
             }}>
-            {item.mata_kuliah}
+            {item.kelas}
           </Text>
+          <Text
+            style={{
+              fontSize: windowWidth / 30,
+              color: colors.black,
+              fontFamily: fonts.secondary[400],
+            }}>
+            Anagkatan
+          </Text>
+          <Text
+            style={{
+              fontSize: windowWidth / 30,
+              color: colors.black,
+              fontFamily: fonts.secondary[600],
+            }}>
+            {item.angkatan}
+          </Text>
+
 
         </View>
         <View

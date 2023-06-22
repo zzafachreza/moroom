@@ -22,4 +22,5 @@ export const getData = async key => {
 
 export const urlAPI = 'https://moroom.zavalabs.com/api';
 export const urlAvatar = urlAPI.replace("api", "avatar/");
+export const urlJadwal = urlAPI.replace("api", "jadwal/");
 export const urlLaporan = urlAPI.replace("api", "fotolaporan/");

@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { colors } from '../../utils/colors';
 import { fonts } from '../../utils/fonts';
-import { storeData, getData, urlAPI } from '../../utils/localStorage';
+import { storeData, getData, urlAPI, urlJadwal } from '../../utils/localStorage';
 import { Icon } from 'react-native-elements';
 import MyCarouser from '../../components/MyCarouser';
 import axios from 'axios';
@@ -26,6 +26,8 @@ import LottieView from 'lottie-react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { MyButton, MyGap } from '../../components';
 import ZavalabsScanner from 'react-native-zavalabs-scanner'
+import moment from 'moment';
+import 'moment/locale/id';
 export default function Home({ navigation }) {
   const [user, setUser] = useState({});
   const [ruangan, setRuangan] = useState([]);
@@ -222,7 +224,9 @@ export default function Home({ navigation }) {
             borderLeftColor: colors.secondary,
           }}><Text>&nbsp;</Text></View>
           <TouchableOpacity onPress={() => {
-            let test = 'R002'
+            // let result = 'R008'
+
+
 
             ZavalabsScanner.showBarcodeReader(result => {
               console.log('barcode : ', result);
@@ -241,16 +245,39 @@ export default function Home({ navigation }) {
                   Alert.alert('MoRoom', 'Maaf ruangan sedang dipakai')
 
                 } else {
-                  navigation.navigate('Add', {
+
+
+
+                  const kirim = {
                     kode: result,
-                    fid_user: user.id
+                    kelas: user.prodi,
+                    angkatan: user.angkatan,
+                    tanggal: moment().format('YYYY-MM-DD'),
+                    jam: moment().format('HH:mm:ss')
+                  }
+                  console.log(kirim)
+                  axios.post(urlJadwal + 'cek_kelas', kirim).then(res => {
+                    console.log(res.data);
+                    if (res.data.status == 200) {
+                      __getDataRuangan();
+                      Alert.alert('Berhasil Masuk, Jadwal Perkuliahan', `Hari : ${res.data.data.hari}\nTanggal : ${moment(res.data.data.tanggal).format('DD MMMM YYYY')}\nJam : ${res.data.data.jam_masuk.substring(0, 5)} - ${res.data.data.jam_keluar.substring(0, 5)}\nMata Kuliah : ${res.data.data.mata_kuliah}\nDosen : ${res.data.data.dosen}\nKelas : ${res.data.data.kelas}\nAngkatan : ${res.data.data.angkatan}\n`)
+                    } else {
+                      Alert.alert('Jadwal Tidak Ditemukan', res.data.message)
+                      showMessage({
+                        type: 'danger',
+                        message: res.data.message
+                      })
+                    }
                   })
+
                 }
 
 
               }
 
             });
+
+
           }} style={{
             flexDirection: 'row',
             justifyContent: 'center',
